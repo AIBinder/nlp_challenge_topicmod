@@ -1,0 +1,2 @@
+bertopic==0.16.0
+datasets==2.18.0

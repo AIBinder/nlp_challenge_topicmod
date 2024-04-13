@@ -1,0 +1,5 @@
+venv/
+*.env
+qdrant/
+qdrant_data/
+*.pyc
