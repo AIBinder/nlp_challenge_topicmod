@@ -22,6 +22,6 @@ def data_prep_mlsum(dataset):
     return filtered_train_dataset
 
 def add_feature(example,mistral_eos_token):
-    example["inst_text"] = "<system>\n Give the topic of the following user text as a precise word:" + mistral_eos_token + "\n<user>\n" + example["text"] + mistral_eos_token + "\n<assistent>\n" + "Thema: " + example["topic"] + "\n Zusammenfassung: " + example["summary"] + mistral_eos_token
+    example["inst_text"] = "<system>\n You are a helpful assistent focussing on providing brief and precise answers. Generally answer in German." + mistral_eos_token + "\n<user>\n Briefly describe the topic in German based on the following user text: " + example["text"] + mistral_eos_token + "\n<assistent>\n" + "Das Thema ist " + example["topic"] + ".\n Zusammenfassung: " + example["summary"] + mistral_eos_token
 
     return example

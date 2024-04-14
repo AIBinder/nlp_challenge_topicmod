@@ -39,7 +39,7 @@ embedding_vectors = np.array([d.vector for d in data])
 dataset = datasets.load_dataset("mlsum", "de")
 
 # subset data for dev
-dev_size = 1000
+dev_size = 2000
 indices_train = range(0,dev_size)
 indices_test = range(0,round(dev_size/4))
 
@@ -106,7 +106,7 @@ training_args = TrainingArguments(
     overwrite_output_dir=True,
     per_device_eval_batch_size=1,
     per_device_train_batch_size=1, 
-    save_strategy="no", #epoch in run later
+    save_strategy="epoch", 
     save_total_limit=None,
     seed=42,
 )

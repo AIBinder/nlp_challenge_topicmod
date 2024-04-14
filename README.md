@@ -1,5 +1,19 @@
 # SUMM AI NLP Challenge - Topic Modeling with LLM 🚀
 
+## initial setup
+1. Launch Docker Environment (docker compose up -d)
+Optional for fine-tuning:
+2. Install and activate venv (python -m venv venv; source venv/bin/activate)
+3. Install Packages (pip install -r requirements.txt)
+
+## Dataset
+- MLSum (https://huggingface.co/datasets/mlsum)
+- German Texts with annotated topics and summaries 
+- (including texts with topic 'München' :D)
+
+
+# task description
+
 ## Objective
 Fine-tune an open-source Large Language Model (LLM) such as Llama2 to perform topic modeling on a collection of text paragraphs. The model should generate a meaningful topic for a given text.
 
