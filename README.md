@@ -1,15 +1,20 @@
 # SUMM AI NLP Challenge - Topic Modeling with LLM 🚀
 
 ## initial setup
-1. Launch Docker Environment (docker compose up -d)
+1. Launch Docker Environment (docker compose up -d)  
 Optional for fine-tuning:
 2. Install and activate venv (python -m venv venv; source venv/bin/activate)
 3. Install Packages (pip install -r requirements.txt)
+4. Install flash-attention for higher performance (pip install flash-attn==2.5.7 --no-build-isolation)
 
 ## Dataset
 - MLSum (https://huggingface.co/datasets/mlsum)
 - German Texts with annotated topics and summaries 
 - (including texts with topic 'München' :D)
+
+## Hardware Requirements for Fine-Tuning
+- GPU with at least 24 GB VRAM (e.g., A10)
+- ideally Ampere Architecture to support bfloat16 
 
 
 # task description

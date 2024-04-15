@@ -39,7 +39,7 @@ embedding_vectors = np.array([d.vector for d in data])
 dataset = datasets.load_dataset("mlsum", "de")
 
 # subset data for dev
-dev_size = 2000
+dev_size = 7000
 indices_train = range(0,dev_size)
 indices_test = range(0,round(dev_size/4))
 
@@ -95,7 +95,7 @@ training_args = TrainingArguments(
     gradient_accumulation_steps=128,
     gradient_checkpointing=True,
     gradient_checkpointing_kwargs={"use_reentrant": False},
-    learning_rate=2.0e-05,
+    learning_rate=2.7e-05, # setting learning rate higher for smaller dataset
     log_level="info",
     logging_steps=5,
     logging_strategy="steps",
