@@ -1,26 +1,37 @@
 # SUMM AI NLP Challenge - Topic Modeling with LLM 🚀
 
-## Initial setup
+## Initial Setup
 1. Download fine-tuned model
    * apt-get install git-lfs; git lfs install
    * mkdir models/; cd models/
    * git clone https://huggingface.co/AI-Binder/topic_gen_v1
-2. Launch Docker Environment (docker compose up -d) [after cd .. to project root folder]
+2. Launch Docker Environment (docker compose up -d)  
+[in project root folder]
 
 
-Optional for fine-tuning:
-3. Install and activate venv (python -m venv venv; source venv/bin/activate)
-4. Install Packages (pip install -r requirements.txt)
-5. Install flash-attention for higher performance (pip install flash-attn==2.5.7 --no-build-isolation)
+Optional for fine-tuning:  
+3. Install and activate venv (python -m venv venv; source venv/bin/activate)  
+4. Install Packages (pip install -r requirements.txt)  
+5. Install flash-attention (pip install flash-attn==2.5.7 --no-build-isolation)
+
+## Short Project Description
+- Mistral-7B Base-Model is fine-tuned on Topics [and Titles] of German news articles (cf. annotated Dataset below)
+- The fine-tuned Model is provided in a docker service with LLM inference and a simple streamlit frontend
+
 
 ## Dataset
 - MLSum (https://huggingface.co/datasets/mlsum)
-- German Texts with annotated topics and summaries 
+- German Texts with annotated topics, titles and summaries 
 - (including texts with topic 'München' :D)
 
 ## Hardware Requirements for Fine-Tuning
 - GPU with at least 24 GB VRAM (e.g., A10)
 - ideally Ampere Architecture to support bfloat16 
+
+## Next steps
+- Improve the fine-tuning with more training data and structured experiments
+- Control the output of the LLM-Inference with e.g. stop_sequences, frequency penalties and manual checks
+- Integrate the training data and entered texts in frontend into VectorDB to be able to search texts with similar topics
 
 
 # task description
