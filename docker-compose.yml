@@ -8,4 +8,27 @@ services:
       - 6333:6333
       - 6334:6334
     volumes:
-      - ./qdrant_data:/qdrant_data # qdrant instead of qdrant_data later
+      - ./qdrant_data:/qdrant_data # qdrant instead of qdrant_data later 
+  llm-inference:
+    image: llm_inference:latest
+    build:
+      context: llm_inference/
+      dockerfile: flask.Dockerfile
+    deploy:
+      resources:
+        reservations:
+          devices:
+          - capabilities: ["gpu"]
+            driver: nvidia
+            count: all  # This requests all GPUs
+    ports:
+      - 5007:5000
+    restart: unless-stopped
+  frontend:
+    image: streamlit_frontend:latest
+    build:
+      context: frontend/
+      dockerfile: streamlit.Dockerfile
+    ports:
+      - 8501:8501
+    restart: unless-stopped

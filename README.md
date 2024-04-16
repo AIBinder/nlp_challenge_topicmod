@@ -1,11 +1,17 @@
 # SUMM AI NLP Challenge - Topic Modeling with LLM 🚀
 
-## initial setup
-1. Launch Docker Environment (docker compose up -d)  
+## Initial setup
+1. Download fine-tuned model
+   * apt-get install git-lfs; git lfs install
+   * mkdir models/; cd models/
+   * git clone https://huggingface.co/AI-Binder/topic_gen_v1
+2. Launch Docker Environment (docker compose up -d) [after cd .. to project root folder]
+
+
 Optional for fine-tuning:
-2. Install and activate venv (python -m venv venv; source venv/bin/activate)
-3. Install Packages (pip install -r requirements.txt)
-4. Install flash-attention for higher performance (pip install flash-attn==2.5.7 --no-build-isolation)
+3. Install and activate venv (python -m venv venv; source venv/bin/activate)
+4. Install Packages (pip install -r requirements.txt)
+5. Install flash-attention for higher performance (pip install flash-attn==2.5.7 --no-build-isolation)
 
 ## Dataset
 - MLSum (https://huggingface.co/datasets/mlsum)

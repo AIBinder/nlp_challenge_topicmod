@@ -85,7 +85,7 @@ model_kwargs = dict(
 )
 
 # output path for training checkpoints and logs
-output_dir = 'models/topic_generator'
+output_dir = 'llm_inference/models/'
 
 # training config
 training_args = TrainingArguments(
@@ -101,7 +101,7 @@ training_args = TrainingArguments(
     logging_strategy="steps",
     lr_scheduler_type="cosine",
     max_steps=-1,
-    num_train_epochs=1,
+    num_train_epochs=2,
     output_dir=output_dir,
     overwrite_output_dir=True,
     per_device_eval_batch_size=1,
@@ -111,7 +111,7 @@ training_args = TrainingArguments(
     seed=42,
 )
 
-# based on config
+# default Lora config atm 
 peft_config = LoraConfig(
         r=64,
         lora_alpha=16,
@@ -121,6 +121,7 @@ peft_config = LoraConfig(
         target_modules=["q_proj", "k_proj", "v_proj", "o_proj"],
 )
 
+# Supervised Fine-Tuning (based on title of articles atm, optimally labels should rather be a substantivierte Themen-Beschreibung, tbd)
 trainer = SFTTrainer(
         model=model_id,
         model_init_kwargs=model_kwargs,
@@ -129,14 +130,17 @@ trainer = SFTTrainer(
         eval_dataset=eval_dataset,
         dataset_text_field="inst_text",
         tokenizer=tokenizer,
-        packing=True,
+        packing=True, #should be batch based padding, to verify
         peft_config=peft_config,
         max_seq_length=tokenizer.model_max_length,
     )
 
+# continue fine-tuning based on checkpoint (since training data is subsetted atm, ideally data should be offset accordingly, Todo)
+train_result = trainer.train(
+  resume_from_checkpoint="models/checkpoint_week_1"
+)
 
-train_result = trainer.train()
-
+#output metrics/state
 metrics = train_result.metrics
 trainer.log_metrics("train", metrics)
 trainer.save_metrics("train", metrics)
