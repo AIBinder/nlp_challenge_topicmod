@@ -6,7 +6,7 @@ import os
 
 app = Flask(__name__)
 
-# Load model
+# Load model and prepare tokenizer
 model_id = "mistralai/Mistral-7B-v0.1"
 tokenizer = AutoTokenizer.from_pretrained(model_id)
 if tokenizer.pad_token_id is None:
@@ -28,13 +28,14 @@ print(f"Using device: {device}")
 model = AutoModelForCausalLM.from_pretrained(
         model_id, 
         quantization_config=quantization_config,
-        torch_dtype="auto", #maybe call explicitly as float16 later for performance (analogously during fine-tuning)
-        #attn_implementation="flash_attention_2", #integrate cuda base image for faster inference later
+        torch_dtype="auto",
+        #attn_implementation="flash_attention_2", 
+        #install flash-attention and maybe call dtype explicitly as float16 for faster inference later
         device_map=device_map
         )
 
 # Load Lora Adapter
-adapter_path = "models/checkpoint-46"
+adapter_path = "models/topic_gen_v1"
 model.load_adapter(adapter_path)
 model.enable_adapters()
 
@@ -61,13 +62,13 @@ def predict():
                 temperature=0.75,
                 #top_k=50,
                 top_p=0.95,
-                repetition_penalty=1.03,
+                repetition_penalty=1.03, #higher repetition penalty to support shorter topic descriptions without repetition
+                # maybe also use length_penalty for that 
         )
 
         output_text = tokenizer.batch_decode(outputs, skip_special_tokens=True)[0]
-        # manual stopping criterion on <user> in string
         output_text_processed = re.split(r'(<user>|<system>|<assistent>)', output_text)[6]
-        # Todo: write cleaner later, Idea is to cut assistant output on <system>, <user> tags and output assistent response only (without query)
+        # Todo: write cleaner later, Idea is to cut/stop assistant output on <system>, <user> tags and output assistent response only (without query)
 
         print(output_text_processed)
         return_json = {

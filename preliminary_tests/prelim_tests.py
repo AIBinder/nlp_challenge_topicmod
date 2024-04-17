@@ -28,6 +28,7 @@ data = client.retrieve(
     with_payload=True
 )
 
+client.close()
 embedding_vectors = np.array([d.vector for d in data])
 data_snippet = [d.payload["page_content"] for d in data]
 
