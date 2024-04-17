@@ -10,10 +10,14 @@
 
 Then the app should be accessible at http://localhost:8501.
 
+(Docker version 24.0.7 and Docker Compose version 2.21.0 used, should allow GPU access for docker container as defined in the docker-compose file)
+
 [Optional] Additional steps for fine-tuning:  
 3. Install and activate venv (python -m venv venv; source venv/bin/activate)  
 4. Install Packages (pip install -r requirements.txt)  
 5. Install flash-attention (pip install flash-attn==2.5.7 --no-build-isolation)
+
+(Python 3.10 used for virtual environment)
 
 ## Short Project Description
 - Mistral-7B Base-Model is fine-tuned on Topics [and Titles] of German news articles (cf. annotated Dataset below)

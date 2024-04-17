@@ -67,12 +67,16 @@ def predict():
         )
 
         output_text = tokenizer.batch_decode(outputs, skip_special_tokens=True)[0]
-        output_text_processed = re.split(r'(<user>|<system>|<assistent>)', output_text)[6]
+        output_text_proc = re.split(r'(<user>|<system>|<assistent>)', output_text)[6]
         # Todo: write cleaner later, Idea is to cut/stop assistant output on <system>, <user> tags and output assistent response only (without query)
 
-        print(output_text_processed)
+        # Todo: account for uppercasing German topic name in fine-tuning training data structure instead of uncleanly here
+        target_pos_upper = 25
+        if output_text_proc.startswith("\nDas generelle Thema ist") and len(output_text_proc)>target_pos_upper:
+            output_text_proc = output_text_proc[:target_pos_upper] + output_text_proc[target_pos_upper].upper() + output_text_proc[target_pos_upper + 1:]
+
         return_json = {
-            "output": output_text_processed 
+            "output": output_text_proc 
             }
 
         return jsonify(return_json), 200
