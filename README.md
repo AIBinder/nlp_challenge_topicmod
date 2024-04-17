@@ -17,11 +17,13 @@ Then the app should be accessible at http://localhost:8501.
 4. Install Packages (pip install -r requirements.txt)  
 5. Install flash-attention (pip install flash-attn==2.5.7 --no-build-isolation)
 
+Then the fine-tuning can be started via 'python llm_finetune.py'
+
 (Python 3.10 used for virtual environment)
 
 ## Short Project Description
-- Mistral-7B Base-Model is fine-tuned on Topics [and Titles] of German news articles (cf. annotated Dataset below)
-- The fine-tuned Model is provided in a docker service with LLM inference and a simple streamlit frontend
+- Mistral-7B Base-Model is fine-tuned on Topics + Titles of German news articles (cf. annotated Dataset below)
+- The fine-tuned Model is provided in a docker environment with LLM inference and a simple streamlit frontend
 
 ## Dataset
 - MLSum (https://huggingface.co/datasets/mlsum)
