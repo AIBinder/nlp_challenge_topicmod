@@ -8,12 +8,23 @@ from datasets import DatasetDict
 import torch
 from trl import SFTTrainer
 from peft import LoraConfig
+import os
+from dotenv import load_dotenv
+from huggingface_hub import HfFolder
 
 # Taking Mistral-7B base model for fine-tuning on German news articles
-model_id = "mistralai/Mistral-7B-v0.1"
-tokenizer = AutoTokenizer.from_pretrained(model_id)
+# if token is provided in .env file, official repo for Mistral is used, otherwise alternative Repo without Gated Access
+load_dotenv('llm_inference/.env')
+token = os.getenv('HF_READ_TOKEN')
+if token:
+    model_id = "mistralai/Mistral-7B-v0.1"
+    HfFolder.save_token(token)
+else:
+    model_id = "MaziyarPanahi/Mistral-7B-v0.1"
+print("Using repo: " + model_id)
 
 # prepare tokenizer
+tokenizer = AutoTokenizer.from_pretrained(model_id)
 if tokenizer.pad_token_id is None:
   tokenizer.pad_token_id = tokenizer.eos_token_id
 tokenizer.padding_side = 'right'

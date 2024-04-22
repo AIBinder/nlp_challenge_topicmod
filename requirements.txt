@@ -4,3 +4,5 @@ trl==0.8.3
 peft==0.10.0
 bitsandbytes==0.43.1
 wheel==0.43.0
+python-dotenv==1.0.1
+huggingface_hub==0.22.2

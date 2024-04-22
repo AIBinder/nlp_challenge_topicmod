@@ -3,11 +3,22 @@ import torch
 import re
 from flask import Flask, request, jsonify
 import os
+from dotenv import load_dotenv
+from huggingface_hub import HfFolder
 
 app = Flask(__name__)
 
 # Load model and prepare tokenizer
-model_id = "mistralai/Mistral-7B-v0.1"
+# if token is provided in .env file, official repo for Mistral is used, otherwise alternative Repo without Gated Access
+load_dotenv('.env')
+token = os.getenv('HF_READ_TOKEN')
+if token:
+    model_id = "mistralai/Mistral-7B-v0.1"
+    HfFolder.save_token(token)
+else:
+    model_id = "MaziyarPanahi/Mistral-7B-v0.1"
+print("Using repo: " + model_id)
+
 tokenizer = AutoTokenizer.from_pretrained(model_id)
 if tokenizer.pad_token_id is None:
   tokenizer.pad_token_id = tokenizer.eos_token_id

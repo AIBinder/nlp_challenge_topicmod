@@ -4,7 +4,9 @@
 1. Download the fine-tuned LoRA adapter for the Mistral-7B model into llm_inference/models/ folder
    * apt-get install git-lfs; git lfs install
    * cd llm_inference/; mkdir models/; cd models/
-   * git clone https://huggingface.co/AI-Binder/topic_gen_v1
+   * git clone https://huggingface.co/AI-Binder/topic_gen_v1   
+   
+   [Optional] 1b. If you want to use the official Mistral-Repo for the base model, a file '.env' has to be created in the llm_inference-Folder with content HF_READ_TOKEN="hf_..." (using a valid Huggingface Access-Token of an account that has accepted the access conditions at http://huggingface.co/mistralai/Mistral-7B-v0.1)  
 2. Launch Docker Environment (docker compose up -d)  
 [in project root folder]
 
