@@ -7,7 +7,7 @@ st.title('Topic Generator')
 st.write('Ausgabe des Themas zu deutschen Nachrichten-Artikeln (aktuell in der ersten Dev-Version). Hier können entsprechend Artikel in Textform übergeben werden.')
 
 # Define textual input field
-text = st.text_input("Text", "")
+text = st.text_input("Text", "")[:5000] #Only consider first x characters for topic generation of very long texts, Todo: determine more precisely based on tokenizer max length and input preprocessing later
 eos_token="</s>" #Todo: invoke from tokenizer later
 # prepare text in format that was used for fine-tuning
 message = utils.query_string(text,eos_token)
